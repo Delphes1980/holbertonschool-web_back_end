@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import math
 """
-This module defines a type function that returns the nearest integer of a float
+This module defines a type function that returns the nearest integer
+of a float using the 'math' librairy
 """
 
 
