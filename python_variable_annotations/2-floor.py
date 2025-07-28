@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
+"""
+This module defines a type function that returns the nearest integer of
+a float
+"""
 import math
-"""
-This module defines a type function that returns the nearest integer
-of a float using the 'math' librairy
-"""
-
 
 def floor(n: float) -> int:
     """
