@@ -5,6 +5,7 @@ a float
 """
 import math
 
+
 def floor(n: float) -> int:
     """
     A function that returns the nearest integer of a float
