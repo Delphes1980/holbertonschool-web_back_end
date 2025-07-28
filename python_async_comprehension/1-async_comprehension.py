@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-A module that defines an asynchronous omprehension
+A module that defines an asynchronous comprehension
 """
 from typing import List
 async_generator = __import__('0-async_generator').async_generator
