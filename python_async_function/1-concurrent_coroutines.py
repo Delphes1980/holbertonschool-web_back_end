@@ -1,11 +1,10 @@
+#!/usr:bin/env python3
 """
 This module defines an async coroutine that returns a random delay
-using asyncio.gather and not creating tasks
 """
-import asyncio
-import random
-wait_random = __import__('0-basic_async_syntax').wait_random
 from typing import List
+import asyncio
+wait_random = __import__('0-basic_async_syntax').wait_random
 
 
 async def wait_n(n: int, max_delay: int) -> List[float]:
