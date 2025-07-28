@@ -13,6 +13,6 @@ def floor(n: float) -> int:
     n (float): the number to round down
 
     Return:
-    An integer is expected as a result
+    int: An integer as a result
     """
     return math.floor(n)
