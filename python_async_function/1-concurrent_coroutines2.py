@@ -21,27 +21,24 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
     """
     delays = []
     for _ in range(n):
-        task = asyncio.create_task(wait_random(max_delay))
-        delays.append(task)
+        delays.append(wait_random(max_delay))
+
+    # Gather all the delays after the wait_random finished
+    results = await asyncio.gather(*delays)
 
     result = []
-    # Iterate over tasks as they complete
-    for future in asyncio.as_completed(delays):
-        tasks = await future  # Await the next completed task
-        result.append(tasks)
 
-    result_sorted = []
-    for tasks in result:
-        if not result_sorted:
-            result_sorted.append(tasks)
+    for delay in results:
+        if not result:  # If list empty
+            result.append(delay)
         else:
             inserted = False
-            for i in range(len(result_sorted)):
-                if tasks < result_sorted[i]:
-                    result_sorted.insert(i, tasks)
-                    inserted = True
+            for i in range(len(result)):
+                if delay < result[i]:  # Find the position for insertion
+                    result.insert(i, delay) 
+                    inserted = True # Flag to indicate insertion done
                     break
             if not inserted:
-                result_sorted.append(tasks)
+                result.append(delay)  # Insertion at the end
 
-    return result_sorted
+    return result
