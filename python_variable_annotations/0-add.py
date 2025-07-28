@@ -3,7 +3,8 @@
 This module defines a type function with expected type of arguments and result
 """
 
-def add(a: float, b:float) -> float:
+
+def add(a: float, b: float) -> float:
     """
     A function that defines the type of arguments expected
 
