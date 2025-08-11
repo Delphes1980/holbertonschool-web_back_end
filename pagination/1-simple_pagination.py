@@ -58,4 +58,4 @@ class Server:
 
         if current_page[0] >= len(data) or current_page[1] > len(data):
             return []
-        return self.__dataset[current_page[0]: current_page[1]]
+        return data[current_page[0]: current_page[1]]
