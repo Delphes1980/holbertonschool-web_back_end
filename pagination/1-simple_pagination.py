@@ -1,3 +1,7 @@
+#!usr/bin/env python3
+"""
+This module defines a function returning index pagination
+"""
 import csv
 import math
 from typing import List
@@ -53,9 +57,7 @@ class Server:
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0
 
-        current_page = index_range(page, page_size)
+        start, end = index_range(page, page_size)
         data = self.dataset()  # Call all the datas
 
-        if current_page[0] >= len(data) or current_page[1] > len(data):
-            return []
-        return data[current_page[0]: current_page[1]]
+        return data[start: end]
