@@ -1,7 +1,5 @@
 #!usr/bin/env python3
-"""
-This module defines a function returning index pagination
-"""
+"""This module defines a function returning index pagination."""
 import csv
 import math
 from typing import List
@@ -9,7 +7,7 @@ from typing import List
 
 def index_range(page, page_size):
     """
-    A function that returns a tuple containing a start index and an end index
+    Return a tuple containing a start index and an end index.
 
     Args:
     page (int): the number of the page
@@ -25,16 +23,16 @@ def index_range(page, page_size):
 
 
 class Server:
-    """Server class to paginate a database of popular baby names.
-    """
+    """Server class to paginate a database of popular baby names."""
+
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
+        """Initialize the object."""
         self.__dataset = None
 
     def dataset(self) -> List[List]:
-        """Cached dataset
-        """
+        """Cache dataset."""
         if self.__dataset is None:
             with open(self.DATA_FILE) as f:
                 reader = csv.reader(f)
@@ -44,7 +42,8 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """ Function that returns the index pagination of a dataset
+        """Return the index pagination of a dataset.
+
         Args:
         page (int): The current page number
         page_size (int): The total number of items per page
