@@ -34,7 +34,7 @@ def log_stat():
     # Iterate through the list and print the corresponding count
     # from the dictionary
     for method in methods_to_check:
-        count = method_number.get(method, 0)
+        count = method_counts.get(method, 0)
         print(f"\t method {method}: {count}")
 
     # Get the number of documents with the method GET and path /status
