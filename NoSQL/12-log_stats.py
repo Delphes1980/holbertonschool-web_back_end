@@ -11,7 +11,7 @@ def log_stat():
     and print some statistics
     """
     # Connexion to the server
-    client = MongoClient("mongodb://localhost:27017")
+    client = MongoClient('mongodb://127.0.0.1:27017')
     logs_collection = client.logs.nginx
 
     # Count the total of documents in the collection
