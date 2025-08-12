@@ -8,7 +8,7 @@ from pymongo import MongoClient
 # def log_stat():
 #     """
 #     Connects to the MongoDB 'logs' database and 'nginx' collection
-#     and print some statistics
+#     and print some statistics using aggregation
 #     """
 #     # Connexion to the server
 #     client = MongoClient('mongodb://127.0.0.1:27017')
@@ -48,18 +48,23 @@ def log_stat():
     """
     The method that provides stats about Nginx logs stored in MongoDB.
     """
+    # Connexion to the server
     client = MongoClient('mongodb://127.0.0.1:27017')
     logs_collection = client.logs.nginx
 
+    # Count the total of documents in the collection
     total_logs = logs_collection.count_documents({})
     print(f"{total_logs} logs")
 
+    # Get the number of documents by method
     methods_to_check = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     print("Methods:")
+
     for method in methods_to_check:
         count = logs_collection.count_documents({"method": method})
         print(f"\tmethod {method}: {count}")
 
+    # Get the number of documents with the method GET and path /status
     status_log = logs_collection.count_documents({
         "method": "GET",
         "path": "/status"
