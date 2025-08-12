@@ -18,29 +18,24 @@ def log_stat():
     total_logs = logs_collection.count_documents({})
     print(f"{total_logs} logs")
 
-    print("Methods:")
-
     # Return the total of documents grouped by method using aggregation
     method_number = logs_collection.aggregate([
         {"$group": {"_id": "$method", "count": {"$sum": 1}}}
     ])
 
-    for item in method_number:
-        method = item['_id']
-        count = item['count']
+    # Store the aggregation result in a dictionary
+    method_counts = {item['_id']: item['count'] for item in method_number}
+
+    # Get the number of documents by method
+    methods_to_check = ["GET", "POST", "PUT", "PATCH", "DELETE"]
+
+    print("Methods:")
+
+    # Iterate through the list and print the corresponding count
+    # from the dictionary
+    for method in methods_to_check:
+        count = method_counts.get(method, 0)
         print(f"\t method {method}: {count}")
-
-    # # Store the aggregation result in a dictionary
-    # method_counts = {item['_id']: item['count'] for item in method_number}
-
-    # # Get the number of documents by method
-    # methods_to_check = ["GET", "POST", "PUT", "PATCH", "DELETE"]
-
-    # # Iterate through the list and print the corresponding count
-    # # from the dictionary
-    # for method in methods_to_check:
-    #     count = method_counts.get(method, 0)
-    #     print(f"\t method {method}: {count}")
 
     # Get the number of documents with the method GET and path /status
     status_log = logs_collection.count_documents({"method": "GET",
