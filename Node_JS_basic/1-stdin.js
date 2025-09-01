@@ -1,15 +1,17 @@
-// Description: Reads a line from the standard input and returns it without the trailing newline.
-console.log('Welcome to Holberton School, what is your name?');
+process.stdin.setEncoding('utf-8');
+
+// Welcome message
+process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
 // Read data from stdin
 process.stdin.on('readable', () => {
   const input = process.stdin.read();
   if (input !== null) {
-    console.log(`Your name is: ${input}`);
+    process.stdout.write(`Your name is: ${input}`);
   }
 });
 
-// End of data from stdin
+// Close the program
 process.on('beforeExit', () => {
-  console.log('This important software is now closing');
+  process.stdout.write('This important software is now closing\n');
 });
