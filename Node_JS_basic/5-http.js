@@ -13,27 +13,26 @@ const app = http.createServer(async (request, response) => {
     response.statusCode = 200;
     response.write('This is the list of our students\n');
 
-    // Sauvegarder la fonction console.log originale
+    // Save the original console.log function
     const originalLog = console.log;
     let capturedOutput = '';
 
-    // Définir une fonction temporaire pour capturer la sortie
+    // Define a temporary function to capture the output
     console.log = (message) => {
       capturedOutput += `${message}\n`;
     };
 
     try {
-      // Appeler la fonction countStudents et attendre qu'elle termine
-      // Toutes les sorties de console.log() de cette fonction seront capturées
+      // Call the countStudents function and wait for it to finish
+      // All console.log() outputs from this function will be captured
       await countStudents(databasePath);
 
-      // Renvoyer la sortie capturée au client HTTP
+      // Send the captured output to the HTTP client
       response.end(capturedOutput);
     } catch (error) {
-      // Gérer l'erreur si le fichier n'est pas trouvé
       response.end(error.message);
     } finally {
-      // Restaurer la fonction console.log originale, peu importe le résultat
+      // Restore the original console.log function, regardless of the result
       console.log = originalLog;
     }
   } else {
