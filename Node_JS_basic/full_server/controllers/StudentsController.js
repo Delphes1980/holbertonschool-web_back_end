@@ -26,7 +26,7 @@ class StudentsController {
   static async getAllStudentsByMajor(request, response) {
     const databasePath = process.argv[2];
     // Get the 'major' parameter from the URL query string
-    const { major } = request.query;
+    const { major } = request.params;
 
     // Validate the major parameter against allowed values
     if (major !== 'CS' && major !== 'SWE') {

@@ -6,7 +6,6 @@ async function readDatabase(filePath) {
     const lines = data.split('\n'); // Split the file content into an array of lines
     const filteredLines = lines.filter((line) => line.trim() !== ''); // Filter the empty lines to avoid counting them
     const studentLines = filteredLines.slice(1); // Slice the first line containing the fields
-    // const numberOfStudents = studentLines.length;
 
     const fields = {}; // Use an object  to group students by their fields of study
 
@@ -21,7 +20,7 @@ async function readDatabase(filePath) {
       }
       fields[field].push(firstname);
     }
-    // return { numberOfStudents, fields };
+
     return fields;
   } catch (error) {
     throw new Error('Cannot load the database');
