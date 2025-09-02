@@ -1,14 +1,12 @@
-/** Counts the number of students from a CSV database file, asynchronously */
-
 const fs = require('node:fs').promises;
 
-async function countStudents(path) {
+async function readDatabase(filePath) {
   try {
-    const data = await fs.readFile(path, 'utf-8');
+    const data = await fs.readFile(filePath, 'utf-8');
     const lines = data.split('\n'); // Split the file content into an array of lines
     const filteredLines = lines.filter((line) => line.trim() !== ''); // Filter the empty lines to avoid counting them
     const studentLines = filteredLines.slice(1); // Slice the first line containing the fields
-    const numberOfStudents = studentLines.length;
+    // const numberOfStudents = studentLines.length;
 
     const fields = {}; // Use an object  to group students by their fields of study
 
@@ -21,23 +19,12 @@ async function countStudents(path) {
       if (!fields[field]) {
         fields[field] = [];
       }
-      // Add the student's first name to their corresponding field's array
       fields[field].push(firstname);
     }
-
-    console.log(`Number of students: ${numberOfStudents}`);
-
-    // Loop through the fields object to log the count & list of students for each field
-    for (const field in fields) {
-      if (Object.prototype.hasOwnProperty.call(fields, field)) {
-        const studentCount = fields[field].length;
-        const studentList = fields[field].join(', ');
-        console.log(`Number of students in ${field}: ${studentCount}. List: ${studentList}`);
-      }
-    }
+    // return { numberOfStudents, fields };
+    return fields;
   } catch (error) {
     throw new Error('Cannot load the database');
   }
 }
-
-module.exports = countStudents;
+module.exports = readDatabase;
