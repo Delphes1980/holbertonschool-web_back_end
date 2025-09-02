@@ -1,20 +1,20 @@
 const http = require('node:http');
-// const fs = require('node:fs');
+const fs = require('node:fs').promises;
 const countStudents = require('./3-read_file_async');
 
 const databasePath = process.argv[2];
 
 const app = http.createServer(async (request, response) => {
   response.setHeader('Content-Type', 'text/plain');
-
   if (request.url === '/') {
     response.statusCode = 200;
     response.end('Hello Holberton School!');
   } else if (request.url === '/students') {
     response.statusCode = 200;
-    countStudents(databasePath)
+    response.write('This is the list of our students\n');
+
+    fs.readFile(databasePath, 'utf-8')
       .then((data) => {
-        // fs.readFile(databasePath, 'utf-8');
         const lines = data.split('\n');
         const filteredLines = lines.filter((line) => line.trim() !== '');
         const studentLines = filteredLines.slice(1);
@@ -33,7 +33,6 @@ const app = http.createServer(async (request, response) => {
           fields[field].push(firstname);
         }
 
-        response.write('This is the list of our students\n');
         response.write(`Number of students: ${numberOfStudents}\n`);
 
         for (const field in fields) {
